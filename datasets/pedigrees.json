@@ -1,0 +1,902 @@
+[
+  {
+    "family_id": "FAM001",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM002",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM003",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM004",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM005",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM006",
+    "inheritance_type": "autosomal_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM007",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM008",
+    "inheritance_type": "autosomal_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM009",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM010",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM011",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM012",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM013",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM014",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM015",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM016",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM017",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM018",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM019",
+    "inheritance_type": "autosomal_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM020",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM021",
+    "inheritance_type": "autosomal_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM022",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM023",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM024",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM025",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM026",
+    "inheritance_type": "autosomal_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM027",
+    "inheritance_type": "autosomal_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM028",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM029",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM030",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM031",
+    "inheritance_type": "autosomal_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM032",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM033",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM034",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM035",
+    "inheritance_type": "autosomal_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM036",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM037",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM038",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM039",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM040",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM041",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM042",
+    "inheritance_type": "autosomal_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM043",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM044",
+    "inheritance_type": "autosomal_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM045",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM046",
+    "inheritance_type": "x_linked_recessive",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM047",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM048",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": true,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM049",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": true,
+        "carrier": false
+      }
+    ]
+  },
+  {
+    "family_id": "FAM050",
+    "inheritance_type": "autosomal_dominant",
+    "members": [
+      {
+        "id": "I-1",
+        "gender": "male",
+        "affected": false,
+        "carrier": false
+      },
+      {
+        "id": "I-2",
+        "gender": "female",
+        "affected": false,
+        "carrier": false
+      }
+    ]
+  }
+]
