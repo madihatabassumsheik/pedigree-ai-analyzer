@@ -13,6 +13,10 @@ function App() {
         <p>🔴 Affected Individual</p>
       </div>
 
+      <p style={{ paddingLeft: "10px" }}>
+      Drag between nodes to create family relationships.
+      </p>
+
       <PedigreeCanvas />
     </div>
   );
