@@ -1,6 +1,8 @@
 import PersonNode from "./PersonNode";
 import React, { useCallback, useState } from "react";
 import PropertiesPanel from "./PropertiesPanel";
+import jsPDF from "jspdf";
+import { templates } from "../data/templates";
 
 import ReactFlow, {
   addEdge,
@@ -141,15 +143,30 @@ const onConnect = useCallback(
 
     try {
 
-      const familyData = {
+    const familyData = {
         family_id: "LIVE001",
 
         members: nodes.map((node) => ({
           id: node.id,
 
-        gender: node.data.gender,
+          name: node.data.label,
 
-        affected: node.data.affected,
+          gender: node.data.gender,
+
+          affected: node.data.affected,
+
+          generation:
+            node.data.generation,
+        })),
+
+        relationships: edges.map((edge) => ({
+          source: edge.source,
+
+          target: edge.target,
+
+          relationshipType:
+            edge.data?.relationshipType ||
+            "parent-child",
         })),
       };
 
@@ -174,6 +191,99 @@ const onConnect = useCallback(
 
       setLoading(false);
     }
+  };
+
+  const exportPDF = () => {
+
+    if (!result) {
+      alert("Run analysis first");
+      return;
+    }
+
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+
+    doc.text(
+      "Pedigree AI Analyzer Report",
+      20,
+      20
+    );
+
+    doc.setFontSize(12);
+
+    doc.text(
+      `Inheritance Type: ${result.prediction}`,
+      20,
+      40
+    );
+
+    doc.text(
+      `Confidence: ${result.confidence}`,
+      20,
+      50
+    );
+
+    doc.text(
+      `Reason: ${result.reason}`,
+      20,
+      60
+    );
+
+    let y = 80;
+
+    doc.text(
+      "Genotype Inference",
+      20,
+      y
+    );
+
+    y += 10;
+
+    result.genotypes?.forEach((person) => {
+
+      doc.text(
+        `${person.name} -> ${person.genotype}`,
+        20,
+        y
+      );
+
+      y += 10;
+    });
+
+    y += 10;
+
+    doc.text(
+      "Future Child Risk",
+      20,
+      y
+    );
+
+    y += 10;
+
+    doc.text(
+      `Affected: ${result.future_child_risk?.affected}`,
+      20,
+      y
+    );
+
+    y += 10;
+
+    doc.text(
+      `Carrier: ${result.future_child_risk?.carrier}`,
+      20,
+      y
+    );
+
+    y += 10;
+
+    doc.text(
+      `Normal: ${result.future_child_risk?.normal}`,
+      20,
+      y
+    );
+
+    doc.save("Pedigree_Report.pdf");
   };
 
   const addPerson = (gender) => {
@@ -369,10 +479,131 @@ const arrangeGenerations = () => {
     setSelectedEdgeId(null);
   };
 
+  const savePedigree = () => {
+
+    const pedigreeData = {
+
+      nodes,
+
+      edges,
+
+      savedAt: new Date()
+        .toISOString(),
+    };
+
+    const blob = new Blob(
+      [
+        JSON.stringify(
+          pedigreeData,
+          null,
+          2
+        ),
+      ],
+      {
+        type: "application/json",
+      }
+    );
+
+    const url =
+      URL.createObjectURL(blob);
+
+    const a =
+      document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+      "pedigree_case.json";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+  };
+
+  const loadPedigree = (event) => {
+
+    const file =
+    event.target.files[0];
+
+    if (!file) return;
+
+    const reader =
+      new FileReader();
+
+    reader.onload = (e) => {
+
+      const data =
+        JSON.parse(
+          e.target.result
+        );
+
+      setNodes(data.nodes || []);
+
+      setEdges(data.edges || []);
+    };
+
+    reader.readAsText(file);
+  };
+
+  const loadTemplate = (template) => {
+
+    setNodes(template.nodes);
+
+    setEdges(template.edges);
+
+    setResult(null);
+  };
+
   return (
     <div style={{ padding: "10px" }}>
 
       <div style={{ marginBottom: "10px" }}>
+      <div
+        style={{
+          marginBottom: "15px",
+        }}
+      >
+
+        <h3>Disease Templates</h3>
+
+        <button
+          onClick={() =>
+            loadTemplate(
+              templates.huntingtons
+            )
+          }
+        >
+          Huntington's
+        </button>
+
+        <button
+          onClick={() =>
+            loadTemplate(
+              templates.thalassemia
+            )
+          }
+          style={{
+            marginLeft: "10px",
+          }}
+        >
+          Thalassemia
+        </button>
+
+        <button
+          onClick={() =>
+            loadTemplate(
+              templates.colorBlindness
+            )
+          }
+          style={{
+            marginLeft: "10px",
+          }}
+        >
+          Color Blindness
+        </button>
+
+      </div>
+ 
 
   <button
     onClick={() => addPerson("male")}
@@ -405,6 +636,17 @@ const arrangeGenerations = () => {
   >
     Arrange Generations
   </button>
+    
+  <button
+    onClick={deleteRelationship}
+    style={{
+      marginLeft: "10px",
+      padding: "10px",
+      cursor: "pointer",
+    }}
+  >
+    Delete Relationship
+  </button>
 
 </div>
 
@@ -423,15 +665,46 @@ const arrangeGenerations = () => {
       </button>
 
       <button
-        onClick={deleteRelationship}
+        onClick={exportPDF}
         style={{
           marginLeft: "10px",
-          padding: "10px",
+          padding: "10px 20px",
           cursor: "pointer",
         }}
       >
-        Delete Relationship
+        Export PDF
       </button>
+
+      <button
+        onClick={savePedigree}
+        style={{
+          marginLeft: "10px",
+          padding: "10px",
+        }}
+      >
+        Save Pedigree
+      </button>
+
+      <label
+        style={{
+          marginLeft: "10px",
+          padding: "10px",
+          border: "1px solid #ccc",
+          cursor: "pointer",
+        }}
+      >
+        Load Pedigree
+
+        <input
+          type="file"
+          accept=".json"
+          style={{
+            display: "none",
+          }}
+          onChange={loadPedigree}
+        />
+      </label>
+
      <div
   style={{
     display: "flex",
@@ -507,6 +780,110 @@ const arrangeGenerations = () => {
             <b>Reason:</b>{" "}
             {result.reason}
           </p>
+
+          {result.risk && (
+            <div
+              style={{
+                marginTop: "15px",
+                padding: "10px",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                backgroundColor: "#fafafa",
+              }}
+            >
+              <h4>Genetic Risk Estimate</h4>
+
+              <p>
+                <b>Example Cross:</b>{" "}
+                {result.risk.example}
+              </p>
+
+              <p>
+                <b>Affected Child Risk:</b>{" "}
+                {result.risk.affected_probability}
+              </p>
+
+              <p>
+                <b>Carrier Risk:</b>{" "}
+                {result.risk.carrier_probability}
+              </p>
+
+              <p>
+                <b>Normal Child Probability:</b>{" "}
+                {result.risk.normal_probability}
+              </p>
+
+            </div>
+          )}
+
+          {result.genotypes && (
+            <div>
+              <h4>Genotype Inference</h4>
+
+              {result.genotypes.map((person, index) => (
+                <div key={index}>
+                  {person.name} → {person.genotype}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {result.future_child_risk && (
+            <div style={{ marginTop: "15px" }}>
+              <h4>Future Child Risk</h4>
+
+              <p>
+                Affected:
+                {" "}
+                {result.future_child_risk.affected}
+              </p>
+
+              <p>
+                Carrier:
+                {" "}
+                {result.future_child_risk.carrier}
+              </p>
+
+              <p>
+                Normal:
+                {" "}
+                {result.future_child_risk.normal}
+              </p>
+            </div>
+          )}
+
+          {result.warnings &&
+            result.warnings.length > 0 && (
+
+              <div
+                style={{
+                  marginTop: "15px",
+                  padding: "10px",
+                  backgroundColor: "#fff3cd",
+                  border: "1px solid #ffeeba",
+                }}
+              >
+
+                <h4>
+                  Validation Warnings
+                </h4>
+
+                <ul>
+
+                  {result.warnings.map(
+                    (warning, index) => (
+
+                      <li key={index}>
+                        {warning}
+                      </li>
+
+                    )
+                  )}
+
+                </ul>
+
+              </div>
+            )}
         </div>
       )}
 
