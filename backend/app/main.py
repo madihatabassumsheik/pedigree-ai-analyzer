@@ -2,12 +2,24 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from app.database.database import Base
+from app.database.database import engine
+from app.database.database import SessionLocal
+from app.database.models import Analysis
 from app.genetics.inheritance import predict_inheritance
 
 
-# --------------------------
+
+# ----------------------------------------------------
+# Create database automatically on startup
+# ----------------------------------------------------
+
+Base.metadata.create_all(bind=engine)
+
+
+# ----------------------------------------------------
 # Models
-# --------------------------
+# ----------------------------------------------------
 
 class FamilyMember(BaseModel):
     id: str
@@ -29,9 +41,9 @@ class FamilyData(BaseModel):
     relationships: list[Relationship]
 
 
-# --------------------------
-# App
-# --------------------------
+# ----------------------------------------------------
+# FastAPI App
+# ----------------------------------------------------
 
 app = FastAPI()
 
@@ -44,6 +56,10 @@ app.add_middleware(
 )
 
 
+# ----------------------------------------------------
+# Routes
+# ----------------------------------------------------
+
 @app.get("/")
 def root():
     return {
@@ -55,11 +71,26 @@ def root():
 def predict(family: FamilyData):
 
     print("\n===== PEDIGREE RECEIVED =====")
-
     print(family.model_dump())
-
     print("=============================\n")
 
-    return predict_inheritance(
+    result = predict_inheritance(
         family.model_dump()
     )
+
+    db = SessionLocal()
+
+    analysis = Analysis(
+        family_id=family.family_id,
+        prediction=result["prediction"],
+        confidence=result["confidence"],
+        reason=result["reason"],
+        ai_explanation=result.get("ai_explanation", "")
+    )
+
+    db.add(analysis)
+    db.commit()
+    db.refresh(analysis)
+    db.close()
+
+    return result

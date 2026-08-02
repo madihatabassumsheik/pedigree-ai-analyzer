@@ -205,14 +205,58 @@ def calculate_risk(prediction):
 
     return {}
 
+def build_analytics(members):
+
+    total_members = len(members)
+
+    affected_count = len([
+        m for m in members
+        if m.get("affected")
+    ])
+
+    male_count = len([
+        m for m in members
+        if m.get("gender") == "male"
+    ])
+
+    female_count = len([
+        m for m in members
+        if m.get("gender") == "female"
+    ])
+
+    generations = len(
+        set(
+            m.get("generation")
+            for m in members
+        )
+    )
+
+    return {
+        "total_members": total_members,
+        "affected_members": affected_count,
+        "unaffected_members":
+            total_members - affected_count,
+        "male_members": male_count,
+        "female_members": female_count,
+        "generations": generations,
+    }
+
 def predict_inheritance(family):
 
     members = family.get("members", [])
     relationships = family.get("relationships", [])
 
+    scores = {
+        "autosomal_dominant": 0,
+        "autosomal_recessive": 0,
+        "x_linked_recessive": 0,
+    }    
+
     validation_warnings = (
         validate_pedigree(family)
     )
+
+    analytics = build_analytics(members)
 
     # -------------------------
     # Build lookup
@@ -328,8 +372,12 @@ def predict_inheritance(family):
 
             "confidence": 0.90,
 
+            "analytics": analytics,
+
             "reason":
                 "Affected individuals appear in every generation.",
+
+            "ai_explanation": generate_explanation("autosomal_dominant", members),
 
             "warnings": validation_warnings,
 
@@ -358,8 +406,12 @@ def predict_inheritance(family):
 
             "confidence": 0.85,
 
+            "analytics": analytics,
+
             "reason":
                 "Affected males predominate and no father-to-son transmission was detected.",
+
+            "ai_explanation": generate_explanation("x_linked_recessive", members),
 
             "warnings": validation_warnings,
 
@@ -386,8 +438,12 @@ def predict_inheritance(family):
 
             "confidence": 0.82,
 
+            "analytics": analytics,
+
             "reason":
                 "Trait appears to skip one or more generations.",
+            
+            "ai_explanation": generate_explanation("autosomal_recessive", members),
             
             "warnings": validation_warnings,
 
@@ -407,13 +463,17 @@ def predict_inheritance(family):
 
         "confidence": 0.50,
 
+        "analytics": analytics,
+
         "reason":
             "Insufficient pedigree evidence.",
+
+        "ai_explanation": generate_explanation("", members),
 
         "warnings": validation_warnings,
 
         "risk": {
-        "affected_probability": "Unknown",
+        "affected_probability": "Unknown",  
         "carrier_probability": "Unknown",
         "normal_probability": "Unknown",
         "example": "Insufficient data"
@@ -423,3 +483,63 @@ def predict_inheritance(family):
 
         "future_child_risk": calculate_child_risk(members)
     }
+
+
+def generate_explanation(
+        prediction,
+        members
+    ):
+
+        affected = [
+            m for m in members
+            if m.get("affected")
+        ]
+
+        generations = sorted(
+            list(
+                set(
+                    m["generation"]
+                    for m in affected
+                )
+            )
+        )
+
+        explanation = []
+
+        explanation.append(
+            f"Affected individuals appear in generations {generations}."
+        )
+
+        males = [
+            m for m in affected
+            if m["gender"] == "male"
+        ]
+
+        females = [
+            m for m in affected
+            if m["gender"] == "female"
+        ]
+
+        explanation.append(
+            f"{len(males)} affected male(s) and {len(females)} affected female(s) were identified."
+        )
+
+        if prediction == "autosomal_dominant":
+
+            explanation.append(
+                "The trait appears across multiple generations and does not skip generations."
+            )
+
+        elif prediction == "autosomal_recessive":
+
+            explanation.append(
+                "The trait appears to skip generations, which is typical of recessive inheritance."
+            )
+
+        elif prediction == "x_linked_recessive":
+
+            explanation.append(
+                "Affected males predominate and no father-to-son transmission was observed."
+            )
+
+        return " ".join(explanation)

@@ -3,6 +3,7 @@ import React, { useCallback, useState } from "react";
 import PropertiesPanel from "./PropertiesPanel";
 import jsPDF from "jspdf";
 import { templates } from "../data/templates";
+import AnalyticsCard from "./AnalyticsCard";
 
 import ReactFlow, {
   addEdge,
@@ -20,6 +21,7 @@ const nodeTypes = {
   person: PersonNode,
 };
 
+
 const initialNodes = [
   {
     id: "1",
@@ -32,7 +34,7 @@ const initialNodes = [
       label: "Father",
       gender: "male",
       affected: false,
-      generation: 2,
+      generation: 1,
     },
   },
 
@@ -47,7 +49,7 @@ const initialNodes = [
       label: "Mother",
       gender: "female",
       affected: true,
-      generation: 2,
+      generation: 1,
     },
   },
 
@@ -62,7 +64,7 @@ const initialNodes = [
       label: "Child",
       gender: "male",
       affected: true,
-      generation: 3,
+      generation: 2,
     },
   },
 ];
@@ -112,6 +114,45 @@ export default function PedigreeCanvas() {
   nodes.find(
     (n) => n.id === selectedNodeId
   ) || null;
+
+const saveCurrentPedigree = () => {
+
+  const pedigree = {
+    nodes,
+    edges,
+    exportedAt:
+      new Date().toISOString(),
+  };
+
+  const blob = new Blob(
+    [
+      JSON.stringify(
+        pedigree,
+        null,
+        2
+      ),
+    ],
+    {
+      type:
+        "application/json",
+    }
+  );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("a");
+
+  link.href = url;
+
+  link.download =
+    "pedigree.json";
+
+  link.click();
+
+  URL.revokeObjectURL(url);
+};
 
 const onConnect = useCallback(
   (params) =>
@@ -553,6 +594,78 @@ const arrangeGenerations = () => {
 
     setResult(null);
   };
+    
+  const getAnalytics = () => {
+
+      const totalPeople =
+        nodes.length;
+
+      const affectedPeople =
+        nodes.filter(
+          (n) => n.data.affected
+        ).length;
+
+      const maleCount =
+        nodes.filter(
+          (n) =>
+            n.data.gender === "male"
+        ).length;
+
+      const femaleCount =
+        nodes.filter(
+          (n) =>
+            n.data.gender === "female"
+        ).length;
+
+      const generations =
+        Math.max(
+          ...nodes.map(
+            (n) =>
+              n.data.generation || 1
+          ),
+          1
+        );
+
+      const prevalence =
+        totalPeople > 0
+          ? (
+              (affectedPeople /
+                totalPeople) *
+              100
+            ).toFixed(1)
+          : 0;
+
+      const complexityScore = Math.min(
+        100,
+        (
+          totalPeople * 5 +
+          edges.length * 3 +
+          generations * 10
+        )
+      );
+
+      let riskLevel = "Low";
+
+      if (prevalence >= 50) {
+        riskLevel = "High";
+      }
+      else if (prevalence >= 20) {
+        riskLevel = "Medium";
+      }
+
+      return {
+        totalPeople,
+        affectedPeople,
+        maleCount,
+        femaleCount,
+        generations,
+        prevalence,
+        complexityScore,
+        riskLevel,
+      };
+    }; 
+   
+  const analytics = getAnalytics();
 
   return (
     <div style={{ padding: "10px" }}>
@@ -650,6 +763,7 @@ const arrangeGenerations = () => {
 
 </div>
 
+
       <button
         onClick={analyzePedigree}
         style={{
@@ -676,15 +790,40 @@ const arrangeGenerations = () => {
       </button>
 
       <button
-        onClick={savePedigree}
-        style={{
-          marginLeft: "10px",
-          padding: "10px",
-        }}
+              onClick={saveCurrentPedigree}
+              style={{
+                marginLeft: "10px",
+                padding: "10px",
+              }}
+            >
+              Save Pedigree
+            </button>
+      {/*} 
+            <select
+        onChange={(e) =>
+          loadSavedPedigree(
+            e.target.value
+          )
+        }
       >
-        Save Pedigree
-      </button>
+       
+      <option>
+      Select Saved Pedigree
+      </option> 
 
+      {savedPedigrees.map((name) => (
+
+        <option
+          key={name}
+          value={name}
+        >
+          {name}
+        </option>
+
+      ))}
+
+      </select>
+      */}
       <label
         style={{
           marginLeft: "10px",
@@ -704,6 +843,75 @@ const arrangeGenerations = () => {
           onChange={loadPedigree}
         />
       </label>
+
+<div
+  style={{
+    display: "flex",
+    gap: "15px",
+    flexWrap: "wrap",
+    marginBottom: "20px",
+  }}
+>
+
+  <AnalyticsCard
+    title="People"
+    value={
+      analytics.totalPeople
+    }
+  />
+
+  <AnalyticsCard
+    title="Affected"
+    value={
+      analytics.affectedPeople
+    }
+  />
+
+  <AnalyticsCard
+    title="Males"
+    value={
+      analytics.maleCount
+    }
+  />
+
+  <AnalyticsCard
+    title="Females"
+    value={
+      analytics.femaleCount
+    }
+  />
+
+  <AnalyticsCard
+    title="Generations"
+    value={
+      analytics.generations
+    }
+  />
+
+  <AnalyticsCard
+    title="Prevalence"
+    value={
+      analytics.prevalence + "%"
+    }
+  />
+
+  <AnalyticsCard
+  title="Complexity"
+  value={
+    analytics.complexityScore +
+    "/100"
+  }
+  />
+
+  <AnalyticsCard
+    title="Risk Level"
+    value={
+      analytics.riskLevel
+    }
+  />
+
+</div>
+
 
      <div
   style={{
@@ -781,6 +989,70 @@ const arrangeGenerations = () => {
             {result.reason}
           </p>
 
+          {result.ai_explanation && (
+            <div
+              style={{
+                marginTop: "15px",
+                padding: "10px",
+                backgroundColor: "#f8f9fa",
+                borderRadius: "8px",
+              }}
+            >
+              <h4>AI Explanation</h4>
+
+              <p>
+                {result.ai_explanation}
+              </p>
+            </div>
+          )}         
+
+          {result.analytics && (
+
+          <div
+            style={{
+              marginTop: "15px",
+              padding: "10px",
+              border: "1px solid #ddd",
+              borderRadius: "8px",
+            }}
+          >
+
+            <h4>Pedigree Analytics</h4>
+
+            <p>
+              <b>Total Members:</b>{" "}
+              {result.analytics.total_members}
+            </p>
+
+            <p>
+              <b>Affected:</b>{" "}
+              {result.analytics.affected_members}
+            </p>
+
+            <p>
+              <b>Unaffected:</b>{" "}
+              {result.analytics.unaffected_members}
+            </p>
+
+            <p>
+              <b>Males:</b>{" "}
+              {result.analytics.male_members}
+            </p>
+
+            <p>
+              <b>Females:</b>{" "}
+              {result.analytics.female_members}
+            </p>
+
+            <p>
+              <b>Generations:</b>{" "}
+              {result.analytics.generations}
+            </p>
+
+          </div>
+
+        )}
+
           {result.risk && (
             <div
               style={{
@@ -851,6 +1123,29 @@ const arrangeGenerations = () => {
               </p>
             </div>
           )}
+
+          {result.ai_explanation && (
+
+          <div
+            style={{
+              marginTop: "15px",
+              padding: "10px",
+              border: "1px solid #ddd",
+              borderRadius: "8px",
+            }}
+          >
+
+            <h4>
+              AI Interpretation
+            </h4>
+
+            <p>
+              {result.ai_explanation}
+            </p>
+
+          </div>
+
+        )}
 
           {result.warnings &&
             result.warnings.length > 0 && (
